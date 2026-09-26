@@ -33,11 +33,11 @@ export const copy = {
   accepted: {
     badge: '🥳',
     title: 'Yay! It’s a date! 💖',
-    when: 'Tonight at 7:00\u00a0PM, in my car\u00a0🚗🎬',
+    when: 'Tonight at 6:00\u00a0PM, in my car\u00a0🚗🎬',
     planTitle: 'Date plan',
     plan: [
       { icon: '👕', label: 'Dress code:', text: 'Casual and comfy' },
-      { icon: '🍿', text: 'Bring your favorite snacks' },
+      { icon: '🍿', text: 'I will bring your favorite snacks' },
       { icon: '🤫', text: 'Phone on silent' },
       { icon: '💛', label: 'Your only job:', text: 'relax and enjoy the movie with me' },
     ],
