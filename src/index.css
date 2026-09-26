@@ -1,0 +1,574 @@
+/* ───────────── Colors & fonts: edit these to restyle everything ───────────── */
+:root {
+  --bg-top: #fff3ea;
+  --bg-bottom: #ffdfe6;
+  --card: #fffdfb;
+  --ink: #4a2c3a;
+  --ink-soft: #7a5566;
+  --rose: #cc3d64;
+  --rose-deep: #b3325a;
+  --rose-soft: #ffe3ea;
+  --peach: #ffb38a;
+  --butter: #ffd66b;
+  --lilac: #c9b6f2;
+  --mint: #9fdcc5;
+  --sky: #8fd0f5;
+  --ticket: #fff6e2;
+  --focus: #7b5cd6;
+
+  --font-display: 'Fredoka', 'Trebuchet MS', 'Segoe UI Rounded', system-ui, sans-serif;
+  --font-body: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --radius-card: 28px;
+  --shadow-card: 0 18px 40px -18px rgba(179, 50, 90, 0.35), 0 2px 6px rgba(74, 44, 58, 0.06);
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  color-scheme: light;
+}
+
+/* ───────────── Base ───────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--ink);
+  background: linear-gradient(170deg, var(--bg-top) 0%, var(--bg-bottom) 100%) fixed;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* ───────────── Layout ───────────── */
+.app {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 54px;
+  padding: max(24px, env(safe-area-inset-top)) 18px max(28px, env(safe-area-inset-bottom));
+  overflow-x: hidden;
+}
+
+.progress {
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: rgba(204, 61, 100, 0.2);
+  transition: width 0.4s var(--ease-soft), background 0.4s;
+}
+
+.dot.is-on {
+  width: 22px;
+  background: var(--rose);
+}
+
+/* ───────────── Card / screens ───────────── */
+.card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 440px;
+  padding: 52px 22px 26px;
+  border-radius: var(--radius-card);
+  background: var(--card);
+  box-shadow: var(--shadow-card);
+  text-align: center;
+}
+
+.screen {
+  animation: screen-in 0.55s var(--ease-soft) both;
+}
+
+.screen.is-leaving {
+  animation: screen-out 0.32s ease-in forwards;
+}
+
+.badge {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  font-size: 36px;
+  line-height: 1;
+  border-radius: 999px;
+  background: var(--rose-soft);
+  border: 4px solid var(--card);
+  box-shadow: 0 8px 18px -8px rgba(179, 50, 90, 0.45);
+  transform: translate(-50%, -50%);
+  animation: badge-pop 0.7s 0.15s var(--ease-soft) both;
+}
+
+.title {
+  margin: 0 0 14px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 6.2vw, 1.9rem);
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+
+.title:focus {
+  outline: none;
+}
+
+.message {
+  margin: 0 0 6px;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+
+/* ───────────── Buttons ───────────── */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 58px;
+  padding: 14px 24px;
+  border: 0;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.2rem;
+  line-height: 1.2;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.2s var(--ease-soft), box-shadow 0.2s, background-color 0.2s;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-primary {
+  color: #fff;
+  background: linear-gradient(135deg, var(--rose) 0%, var(--rose-deep) 100%);
+  box-shadow: 0 10px 22px -10px rgba(179, 50, 90, 0.7);
+}
+
+.btn-secondary {
+  color: var(--ink);
+  background: var(--card);
+  box-shadow: inset 0 0 0 2px rgba(204, 61, 100, 0.35);
+}
+
+.btn-heartbeat {
+  animation: heartbeat 2.4s 1s ease-in-out infinite;
+}
+
+.btn-link {
+  align-self: center;
+  min-height: 44px;
+  padding: 8px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--ink-soft);
+  text-decoration: underline;
+  text-decoration-color: rgba(122, 85, 102, 0.35);
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 14px 26px -10px rgba(179, 50, 90, 0.75);
+  }
+  .btn-secondary:hover {
+    background: var(--rose-soft);
+  }
+  .btn-link:hover {
+    color: var(--rose);
+  }
+}
+
+/* ───────────── "No" modal ───────────── */
+.modal {
+  width: calc(100% - 32px);
+  max-width: 400px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  overflow: visible;
+}
+
+.modal[open] {
+  animation: modal-in 0.45s var(--ease-soft) both;
+}
+
+.modal::backdrop {
+  background: rgba(74, 44, 58, 0.45);
+  backdrop-filter: blur(3px);
+  animation: fade-in 0.3s ease both;
+}
+
+.modal-panel {
+  position: relative;
+  padding: 26px 22px 18px;
+  border-radius: var(--radius-card);
+  background: var(--card);
+  box-shadow: var(--shadow-card);
+  text-align: center;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--rose-soft);
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.buddy {
+  display: block;
+  width: 150px;
+  height: auto;
+  margin: 4px auto 10px;
+  transform-origin: 50% 90%;
+  animation: wobble 2.2s ease-in-out infinite;
+}
+
+.buddy-tear {
+  animation: tear 1.8s ease-in infinite;
+}
+
+.modal-message {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.35rem;
+  line-height: 1.35;
+  text-wrap: balance;
+}
+
+.modal .actions {
+  margin-top: 20px;
+  gap: 6px;
+}
+
+/* ───────────── Accepted screen ───────────── */
+.is-celebrating > * {
+  animation: rise-in 0.6s var(--ease-soft) both;
+}
+.is-celebrating > :nth-child(2) { animation-delay: 0.25s; }
+.is-celebrating > :nth-child(3) { animation-delay: 0.4s; }
+.is-celebrating > :nth-child(4) { animation-delay: 0.55s; }
+.is-celebrating > :nth-child(5) { animation-delay: 0.7s; }
+.is-celebrating > :nth-child(6) { animation-delay: 0.85s; }
+
+.is-celebrating > .badge {
+  animation: badge-pop 0.8s 0.1s var(--ease-soft) both;
+}
+
+.is-celebrating .title {
+  font-size: clamp(1.9rem, 8vw, 2.4rem);
+  color: var(--rose);
+}
+
+.when {
+  display: inline-block;
+  margin: 0;
+  padding: 10px 18px;
+  border-radius: 18px;
+  background: #efe8ff;
+  font-weight: 800;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  text-wrap: balance;
+}
+
+.ticket {
+  position: relative;
+  margin: 22px 0 18px;
+  padding: 20px 22px 18px;
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 0 50%, var(--card) 11px, transparent 12px),
+    radial-gradient(circle at 100% 50%, var(--card) 11px, transparent 12px),
+    var(--ticket);
+  border: 2px dashed rgba(241, 176, 64, 0.55);
+  text-align: left;
+}
+
+.ticket-title {
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+.ticket-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ticket-list li {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.05rem;
+  line-height: 1.4;
+}
+
+.ticket-icon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  background: var(--card);
+  font-size: 1.15rem;
+}
+
+.signoff {
+  margin: 0 0 4px;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+/* ───────────── Celebration: balloons + confetti ───────────── */
+.celebration {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.confetti {
+  position: absolute;
+  top: -20px;
+  width: 9px;
+  height: 14px;
+  border-radius: 2px;
+  opacity: 0;
+  animation-name: confetti-fall;
+  animation-timing-function: cubic-bezier(0.3, 0.6, 0.6, 1);
+  animation-fill-mode: both;
+}
+
+.confetti.is-round {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+}
+
+.balloon {
+  position: absolute;
+  bottom: -120px;
+  border-radius: 50% 50% 48% 52% / 58% 58% 42% 42%;
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.6) 0 10%, transparent 11%),
+    var(--balloon);
+  box-shadow: inset -6px -8px 0 rgba(0, 0, 0, 0.06);
+  opacity: 0;
+  animation-name: balloon-rise;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+}
+
+.balloon::before {
+  content: '';
+  position: absolute;
+  top: 99%;
+  left: 50%;
+  border: 5px solid transparent;
+  border-bottom-color: var(--balloon);
+  transform: translateX(-50%) rotate(180deg);
+}
+
+.balloon::after {
+  content: '';
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  width: 1.5px;
+  height: 64px;
+  background: rgba(74, 44, 58, 0.3);
+}
+
+/* ───────────── Background hearts ───────────── */
+.bg-hearts {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bg-hearts span {
+  position: absolute;
+  bottom: -30px;
+  color: var(--rose);
+  opacity: 0;
+  animation-name: heart-drift;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* ───────────── Larger screens ───────────── */
+@media (min-width: 560px) {
+  .card {
+    max-width: 480px;
+    padding: 58px 40px 32px;
+  }
+  .actions-pair {
+    flex-direction: row;
+  }
+  .actions-pair .btn-primary {
+    flex: 1.4;
+  }
+  .actions-pair .btn-secondary {
+    flex: 1;
+  }
+  .modal-panel {
+    padding: 30px 32px 22px;
+  }
+}
+
+/* ───────────── Keyframes ───────────── */
+@keyframes screen-in {
+  from { opacity: 0; transform: translateY(24px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes screen-out {
+  to { opacity: 0; transform: translateY(-18px) scale(0.98); }
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes badge-pop {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+  60% { opacity: 1; transform: translate(-50%, -50%) scale(1.12); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  8% { transform: scale(1.04); }
+  16% { transform: scale(1); }
+  24% { transform: scale(1.03); }
+  32% { transform: scale(1); }
+}
+
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(20px) scale(0.92); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+}
+
+@keyframes wobble {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg); }
+}
+
+@keyframes tear {
+  0% { opacity: 0; transform: translateY(-4px); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(14px); }
+}
+
+@keyframes confetti-fall {
+  0% { opacity: 1; transform: translate(0, 0) rotate(0deg); }
+  85% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--drift), 105vh) rotate(var(--spin)); }
+}
+
+@keyframes balloon-rise {
+  0% { opacity: 0; transform: translate(0, 0); }
+  10% { opacity: 0.95; }
+  50% { transform: translate(var(--sway), -60vh); }
+  90% { opacity: 0.95; }
+  100% { opacity: 0; transform: translate(0, calc(-100vh - 200px)); }
+}
+
+@keyframes heart-drift {
+  0% { opacity: 0; transform: translateY(0) rotate(-10deg); }
+  15% { opacity: 0.22; }
+  85% { opacity: 0.22; }
+  100% { opacity: 0; transform: translateY(-110vh) rotate(10deg); }
+}
+
+/* ───────────── Reduced motion ───────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .celebration,
+  .bg-hearts {
+    display: none;
+  }
+}
