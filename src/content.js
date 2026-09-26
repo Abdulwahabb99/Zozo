@@ -24,7 +24,7 @@ export const copy = {
   },
 
   noModal: {
-    message: 'Really, Zozo? You said no?! 🥺 Go on… choose yes!',
+    message: 'Really, Zozo? You said no?! 😤 Go on and move ur fucking ass .. say yes!',
     yes: 'Okay, okay — YES!',
     back: 'Hmm, let me think 🤔',
     closeLabel: 'Close and go back to the invitation',
